@@ -1,0 +1,155 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-gold: var(--gold);
+  --color-violet: var(--violet);
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.9rem;
+  --background: oklch(0.16 0.028 285);
+  --foreground: oklch(0.96 0.008 90);
+  --surface: oklch(0.21 0.03 285);
+  --surface-2: oklch(0.25 0.033 288);
+  --card: oklch(0.21 0.03 285);
+  --card-foreground: oklch(0.96 0.008 90);
+  --popover: oklch(0.21 0.03 285);
+  --popover-foreground: oklch(0.96 0.008 90);
+  --primary: oklch(0.79 0.16 72);
+  --primary-foreground: oklch(0.18 0.03 60);
+  --secondary: oklch(0.28 0.035 288);
+  --secondary-foreground: oklch(0.95 0.01 90);
+  --muted: oklch(0.26 0.03 288);
+  --muted-foreground: oklch(0.72 0.02 285);
+  --accent: oklch(0.66 0.16 305);
+  --accent-foreground: oklch(0.98 0.005 90);
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.98 0.005 90);
+  --border: oklch(0.32 0.03 288);
+  --input: oklch(0.3 0.03 288);
+  --ring: oklch(0.79 0.16 72);
+  --gold: oklch(0.83 0.16 78);
+  --violet: oklch(0.66 0.17 300);
+
+  --gradient-aurora: radial-gradient(
+      55% 55% at 18% 12%,
+      color-mix(in oklab, var(--violet) 34%, transparent),
+      transparent
+    ),
+    radial-gradient(50% 50% at 88% 8%, color-mix(in oklab, var(--gold) 24%, transparent), transparent),
+    radial-gradient(60% 60% at 50% 110%, color-mix(in oklab, var(--accent) 22%, transparent), transparent);
+  --gradient-gold: linear-gradient(135deg, var(--gold), color-mix(in oklab, var(--violet) 55%, var(--gold)));
+  --shadow-glow: 0 0 60px -12px color-mix(in oklab, var(--gold) 55%, transparent);
+  --shadow-panel: 0 24px 60px -30px oklch(0 0 0 / 0.85);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    background-image: var(--gradient-aurora);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--surface-2);
+    border-radius: 999px;
+  }
+}
+
+@utility text-gradient-gold {
+  background-image: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility panel {
+  background-color: color-mix(in oklab, var(--surface) 82%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-panel);
+  backdrop-filter: blur(14px);
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.75;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@utility animate-pulse-ring {
+  animation: pulse-ring 2.4s cubic-bezier(0.25, 0.8, 0.4, 1) infinite;
+}
+
+@utility animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
